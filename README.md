@@ -1,0 +1,3 @@
+# FlashBot
+
+npm run devStart
