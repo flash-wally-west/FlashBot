@@ -15,6 +15,7 @@ module.exports.run = async(bot, message, args) => {
     }
     const list = bot.guilds.cache.get("663406888272134204");
     var found_a_user = 0;
+    var recipientID;
     /*if(!args[0]){
         return message.reply("Please enter the rating between 0-5 followed by the tag of the user you want to review. For example:\n> better.review 1 flash#4171");
     } else{
@@ -27,11 +28,19 @@ module.exports.run = async(bot, message, args) => {
         }
     }*/
     if(!args[0]) {
-        return message.reply("Please specify the user you wish to review.");
+        return message.reply("Please specify the tag of the user you wish to review. This includes the # and the 4 numbers following their username. For example:\n\n> better.review flash#4171")
     } else{
+        list.members.cache.each(member => {
+            //console.log(member.user.tag);
+            if(args[0]===member.user.tag){
+                found_a_user = 1;
+                recipientID = member.user.id;
+            }
+        });
+        if(found_a_user===0){return message.reply(`Sorry, couldn't find ${args[0]} in the Better Conversations server. You can only review users the Better Conversations server. \n\nMake sure to specify the tag of the user you wish to review. This includes the # and the 4 letters following their username. For example:\n\n> better.review flash#4171`);}
         try{
             const reply = await message.reply(
-                {content:`Review:\n\nDid you have a better conversation? React with the rating you'd like to give to this user, 0 being a much worse conversation, and 5 being a much better conversation.`,
+                {content:`Review:\n\nDid you have a better conversation with ${args[0]}? Using reactions, rate how much you enjoyed conversing with this user, 0 being a much worse conversation, and 5 being a much better conversation.`,
             fetchReply:true});
             await reply.react('0️⃣');
             await reply.react('1️⃣');
@@ -39,43 +48,66 @@ module.exports.run = async(bot, message, args) => {
             await reply.react('3️⃣');
             await reply.react('4️⃣');
             await reply.react('5️⃣');
-        }catch(error){
-            //handle error
-        }
-        
+            var rating;
+            const filter = (reaction, user) => {
+                return ['0️⃣','1️⃣','2️⃣','3️⃣','4️⃣','5️⃣'].includes(reaction.emoji.name) && user.id === message.author.id;
+            }
 
-        //console.log(reply.message);
-        /*
-        list.members.cache.each(member => {
-            console.log(member.user.tag);
-            if(args[0]===member.user.tag){
-                found_a_user = 1;
-                Data.findOne({
-                    userID: member.user.id
-                },(err,data)=>{
-                    if(err) console.log(err);
-                    if(!data) {
-                        const newData = new Data({
-                            name: member.user.tag,
-                            userID: member.user.id,
-                            influence: 0,
-                            version:0,
-                            better_coin:rating,
-                            pieces:0,
-                        })
-                        newData.save().catch(err=>console.log(err));
-                        message.reply(`Successfully gave ${rating} BetterCoin to ${member.user.tag}`);
-                        
+            reply.awaitReactions({filter,max: 1, time: 60000, errors: ['time']})
+                .then(collected => {
+                    const reaction = collected.first();
+
+                    if(reaction.emoji.name==='0️⃣'){
+                        rating = 0;
+                    } else if(reaction.emoji.name==='1️⃣'){
+                        rating = 1;
+                    } else if(reaction.emoji.name==='2️⃣'){
+                        rating = 2;
+                    } else if(reaction.emoji.name==='3️⃣'){
+                        rating = 3;
+                    } else if(reaction.emoji.name==='4️⃣'){
+                        rating = 4;
+                    } else if(reaction.emoji.name==='5️⃣'){
+                        rating = 5;
                     } else {
-                        data.better_coin+=rating;
-                        data.save().catch(err=>console.log(err));
-                        message.reply(`Successfully gave ${rating} BetterCoin to ${member.user.tag}`);
+                        return message.reply("Error 1: You reacted with an invalid emoji");
                     }
                 })
-            }
-        });
-        if(found_a_user===0){message.reply('You did not specify a user in the Better Conversations server');}
-        */
+                .then(() => {
+                    Data.findOne({
+                        userID: recipientID
+                    },(err,data)=>{
+                        if(err) console.log(err);
+                        if(!data) {
+                            const newData = new Data({
+                                name: args[0],
+                                userID: recipientID,
+                                influence: 0,
+                                version:0,
+                                better_coin:rating,
+                                pieces:0,
+                            })
+                            newData.save().catch(err=>console.log(err));
+                            message.reply(`Successfully gave ${rating} BetterCoin to ${args[0]}`);
+                            
+                        } else {
+                            data.better_coin+=rating;
+                            data.save().catch(err=>console.log(err));
+                            message.reply(`Successfully gave ${rating} BetterCoin to ${args[0]}`);
+                        }
+                    })
+                })
+                .catch(collected => {
+                    message.reply("Timed out");
+                })
+        }catch(error){
+            console.log(error);
+            //handle error
+        }
+        //console.log(reply.message);
+        //delay(10);
+        
+        
     }
     
 
