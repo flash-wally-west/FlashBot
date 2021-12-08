@@ -60,7 +60,7 @@ client.on("message", msg => {
     if(msg.channel.name==="🗳suggestion-box"){
     //if (msg.channel.name === "suggestion-box") {
       if((!msg.content.startsWith("!suggest"))&&(!msg.author.bot)){
-          msg.reply('Please preface your message with "!suggest" so that Carl Bot can track your suggestions and you can see whether it was approved or denied. For example:\n\n> !suggest ban flash')
+          msg.reply('Please preface your message with "!suggest" so that Carl-bot can track your suggestions and you can see whether it was approved or denied. For example:\n\n> !suggest ban flash')
           //msg.channel.send("!suggest "+msg.content)
           //msg.reply("Please preface your message with \n\n> !suggest ban flash\n\n so that Carl Bot can track your suggestions and you can see whether it was approved or denied")
       }
