@@ -98,11 +98,11 @@ module.exports.run = async(bot, message, args) => {
                         }
                     })
                     const newLog = new ratinglog({
-                        reviewer:message.author.id,
-                        reviewee:recipientID,
-                        reviewername:message.author.tag,
-                        revieweename:args[0],
-                        time: Date.now(),
+                        reviewerID:message.author.id,
+                        revieweeID:recipientID,
+                        reviewer:message.author.tag,
+                        reviewee:args[0],
+                        time: new Date(Date.now()).toString(),
                     })
                     newLog.save().catch(err=>console.log(err));
                 })
