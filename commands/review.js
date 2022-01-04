@@ -123,6 +123,6 @@ module.exports.run = async(bot, message, args) => {
 }
 
 module.exports.help = {
-    name: "review",
+    name: "rate",
     aliases: ["r"]
 }
