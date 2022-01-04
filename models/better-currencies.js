@@ -7,6 +7,8 @@ const schema = new mongoose.Schema({
     influence: Number,
     pieces: Number,
     better_coin: Number,
+    total_rating: Number,
+    num_ratings: Number,
 })
 
 module.exports=mongoose.model("Data",schema);
