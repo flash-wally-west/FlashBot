@@ -49,7 +49,7 @@ client.on('ready', async() => {
 });
 
 client.on("message", msg => {
-    if(msg.content.indexOf("Better")!==-1||msg.content.indexOf("better")!==-1){
+    if(msg.content.indexOf("Better Conversation")!==-1||msg.content.indexOf("better conversation")!==-1){
         if(msg.author.id!=='913880004083986473'){msg.react('❤️');}
     }
 
