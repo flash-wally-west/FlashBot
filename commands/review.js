@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Discord = require('discord.js');
 const mongoPass = process.env.MONGO_URI;
 const Data = require("../models/better-currencies.js");
+const ratinglog = require("../models/rating-log.js");
 
 mongoose.connect(mongoPass,{
     keepAlive:true,
@@ -96,6 +97,13 @@ module.exports.run = async(bot, message, args) => {
                             message.reply(`Successfully gave ${rating} BetterCoin to ${args[0]}`);
                         }
                     })
+                    const newLog = new ratinglog({
+                        reviewer:message.author.id,
+                        reviewee:recipientID,
+                        message:message.id,
+                        time: Date.now(),
+                    })
+                    newLog.save().catch(err=>console.log(err));
                 })
                 .catch(collected => {
                     message.reply("Timed out");
