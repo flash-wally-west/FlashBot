@@ -7,4 +7,4 @@ const schema = new mongoose.Schema({
     time: Number,
 })
 
-module.exports=mongoose.model("Log",schema);
+module.exports=mongoose.model("update-log",schema);
