@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const schema = new mongoose.Schema({
     reviewer: String,
     reviewee: String,
-    message: Number,
+    reviewername: String,
+    revieweename: String,
     time: Number,
 })
 
