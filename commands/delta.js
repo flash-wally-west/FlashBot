@@ -114,10 +114,12 @@ module.exports.run = async (bot, message, args) => {
                         }
                     })
                     const newLog = new log({
-                        influencee:donor.id,
-                        influencer:user.id,
+                        influenceeID:donor.id,
+                        influencerID:user.id,
+                        influencee:donor.tag,
+                        influencer:user.tag,
                         message:message.id,
-                        time: Date.now(),
+                        time: new Date(Date.now()).toString(),
                     })
                     newLog.save().catch(err=>console.log(err));
     
