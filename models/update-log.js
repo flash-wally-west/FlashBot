@@ -6,7 +6,8 @@ const schema = new mongoose.Schema({
     influencer: String,
     influencee: String,
     message: String,
-    time: String,
+    time: Number,
+    timestr: String,
 })
 
 module.exports=mongoose.model("update-log",schema);
