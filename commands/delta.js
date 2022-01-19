@@ -29,7 +29,7 @@ async function deltaLimit(donorid,userid){
         
         if(donorid===doc.influencee){
             if(userid===doc.influencer){
-                //console.log(diff);
+                console.log("found a doc with this donor and recipient");
                 var diff = (Date.now()-doc.time)
                 if(diff<86400000){
                     diff_array.push(86400000-diff);
