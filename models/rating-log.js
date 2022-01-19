@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
-    reviewerID: Number,
-    revieweeID: Number,
+    reviewerID: String,
+    revieweeID: String,
     reviewer: String,
     reviewee: String,
     time: String,
