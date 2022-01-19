@@ -5,7 +5,8 @@ const schema = new mongoose.Schema({
     revieweeID: String,
     reviewer: String,
     reviewee: String,
-    time: String,
+    time: Number,
+    timestr: String,
 })
 
 module.exports=mongoose.model("Rating-Log",schema);
