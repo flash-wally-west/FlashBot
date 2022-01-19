@@ -123,7 +123,8 @@ module.exports.run = async (bot, message, args) => {
                         influencee:donor.tag,
                         influencer:user.tag,
                         message:message.id,
-                        time: new Date(Date.now()).toString(),
+                        time: Date.now(),
+                        timestr: new Date(Date.now()).toString(),
                     })
                     newLog.save().catch(err=>console.log(err));
     
