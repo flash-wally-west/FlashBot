@@ -102,7 +102,8 @@ module.exports.run = async(bot, message, args) => {
                         revieweeID:recipientID,
                         reviewer:message.author.tag,
                         reviewee:args[0],
-                        time: new Date(Date.now()).toString(),
+                        time: Date.now(),
+                        timestr: new Date(Date.now()).toString(),
                     })
                     newLog.save().catch(err=>console.log(err));
                 })
