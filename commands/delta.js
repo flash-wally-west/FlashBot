@@ -22,6 +22,7 @@ function round(value, decimals) {
   }
 
 async function deltaLimit(donorid,userid){
+    console.log("delta limit function entered");
     var output = [0,0];
     let dailycount=0;
     var diff_array=[];
