@@ -22,15 +22,12 @@ function round(value, decimals) {
   }
 
 async function deltaLimit(donorid,userid){
-    console.log("delta limit function entered");
     var output = [0,0];
     let dailycount=0;
     var diff_array=[];
     for await (const doc of log.find()) {
-        console.log(donorid);
-        console.log(doc.influencee);
-        if(donorid===doc.influencee){
-            if(userid===doc.influencer){
+        if(donorid===doc.influenceeID){
+            if(userid===doc.influencerID){
                 console.log("found a doc with this donor and recipient");
                 var diff = (Date.now()-doc.time)
                 if(diff<86400000){
