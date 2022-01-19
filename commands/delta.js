@@ -27,7 +27,8 @@ async function deltaLimit(donorid,userid){
     let dailycount=0;
     var diff_array=[];
     for await (const doc of log.find()) {
-        console.log("found a doc");
+        console.log(donorid);
+        console.log(doc.influencee);
         if(donorid===doc.influencee){
             if(userid===doc.influencer){
                 console.log("found a doc with this donor and recipient");
