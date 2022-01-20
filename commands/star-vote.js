@@ -17,9 +17,9 @@ module.exports.run = async(bot, message, args) => {
     }
     
     message.reply("Okay, listening for candidates")
-        .then( ()=> {
+        .then( async()=> {
             message.channel.awaitMessages({filter, max: 1, time: 30000, errors: ['time'] })
-                .then( collected => {
+                .then( async collected => {
                     if(collected.content==="end"){
                         return;
                     } else {
