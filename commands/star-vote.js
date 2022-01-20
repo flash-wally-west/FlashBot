@@ -20,26 +20,29 @@ module.exports.run = async(bot, message, args) => {
         .then( async()=> {
             message.channel.awaitMessages({filter, max: 1, time: 30000, errors: ['time'] })
                 .then( async collected => {
-                    if(collected.content==="end"){
-                        return;
-                    } else {
-                        try {
-                            await collected.react('0️⃣');
-                            await collected.react('1️⃣');
-                            await collected.react('2️⃣');
-                            await collected.react('3️⃣');
-                            await collected.react('4️⃣');
-                            await collected.react('5️⃣');
-                            
-                        }catch(error){
-                            console.log(error);
-                            //handle error
+                    collected.forEach( async member => {
+                        if(member.content==="end"){
+                            return message.reply("No longer listening");
+                        } else {
+                            try {
+                                await member.react('0️⃣');
+                                await member.react('1️⃣');
+                                await member.react('2️⃣');
+                                await member.react('3️⃣');
+                                await member.react('4️⃣');
+                                await member.react('5️⃣');
+
+                            }catch(error){
+                                console.log(error);
+                                //handle error
+                            }
+
+                            //other stuff
+                            //somehow keep track of the incoming reactions
+                            //disallow >1 reaction per message
                         }
-                        
-                        //other stuff
-                        //somehow keep track of the incoming reactions
-                        //disallow >1 reaction per message
-                    }
+                        });
+                    
                 })
                 .catch(collected => {
                     message.reply("Timed out");
