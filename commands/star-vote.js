@@ -23,12 +23,19 @@ module.exports.run = async(bot, message, args) => {
                     if(collected.content==="end"){
                         return;
                     } else {
-                        await collected.react('0️⃣');
-                        await collected.react('1️⃣');
-                        await collected.react('2️⃣');
-                        await collected.react('3️⃣');
-                        await collected.react('4️⃣');
-                        await collected.react('5️⃣');
+                        try {
+                            await collected.react('0️⃣');
+                            await collected.react('1️⃣');
+                            await collected.react('2️⃣');
+                            await collected.react('3️⃣');
+                            await collected.react('4️⃣');
+                            await collected.react('5️⃣');
+                            
+                        }catch(error){
+                            console.log(error);
+                            //handle error
+                        }
+                        
                         //other stuff
                         //somehow keep track of the incoming reactions
                         //disallow >1 reaction per message
