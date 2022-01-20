@@ -9,7 +9,7 @@ mongoose.connect(mongoPass,{
 });
 
 module.exports.run = async(bot, message, args) => {
-    if(message.channel.name==="vote"||message.channel.name==="✅voting"||message.channel.name==="voting"||message.channel.name==="book-club-vote"){
+    if(message.channel.name!=="vote"||message.channel.name!=="✅voting"||message.channel.name!=="voting"||message.channel.name!=="book-club-vote"){
         return message.reply("This only works in a voting channel");
     }
     const filter = () => {
